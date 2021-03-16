@@ -7,8 +7,6 @@ private:
   double m;
   /// Параметр метода
   double r;
-  /// 
-  double eps;
 protected:
   double CalculateR(int p) override;
 public:

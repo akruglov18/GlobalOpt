@@ -144,6 +144,8 @@ protected:
 	int IterationCount;
 	/// »нтервал с максимальной характеристикой
 	int t;
+	///
+	double eps;
 	/** ¬ычисление характеристики интервала
 	\param[in] p указатель на интервал, характеристику которого надо вычислить
 	\return ’арактеристика интервала
@@ -158,7 +160,7 @@ protected:
 	bool UpdateOptimumEstimation(const TTrial& trial);
 
 	/// ѕровер€ет попала ли точка в окрестность глобального манимума
-	virtual bool CheckOptimumPoint(const TTrial& trial) = 0;
+	virtual bool CheckOptimumPoint(const TTrial& trial);
 
 public:
 
@@ -215,9 +217,6 @@ public:
 	\return текущее испытание
 	*/
 	TTrial GetCurTrial();
-	/** ”становить границы области поиска
-	*/
-	virtual void SetBounds() = 0;
 	/**—бор статистики
 	‘ункци€ возвращает общее число испытаний, выполненных при решении текущей задачи
 	\return общее число испытаний
@@ -228,8 +227,8 @@ public:
 	/**‘ункци€ записывает точки испытаний в файл
 	\param[in] fileName им€ файла, в который будут записаны точки
 	*/
-	virtual void PrintPoints(const std::string& fileName) = 0;
+	virtual void PrintPoints(const std::string& fileName);
 
 	/// ¬озвращает достигнутую точность
-	virtual double GetAchievedAccuracy() = 0;
+	virtual double GetAchievedAccuracy();
 };

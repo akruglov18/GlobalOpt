@@ -1,4 +1,5 @@
 #include "classes.h"
+#include<fstream>
 
 int IMethod::GetNumberOfTrials()
 {
@@ -8,6 +9,20 @@ int IMethod::GetNumberOfTrials()
 int IMethod::GetBestTrialIteration()
 {
   return BestTrial.IterationNumber;
+}
+
+void IMethod::PrintPoints(const std::string& fileName)
+{
+  std::ofstream out(fileName);
+  for (auto& t : Trials) {
+    out << t.x << " ";
+  }
+  out.close();
+}
+
+double IMethod::GetAchievedAccuracy()
+{
+  return abs(BestTrial.x - pTask->GetOptimumPoint());
 }
 
 void IMethod::CalculateFunction()
@@ -47,5 +62,12 @@ bool IMethod::UpdateOptimumEstimation(const TTrial& trial)
     recalc = true;
     return true;
   }
+  return false;
+}
+
+bool IMethod::CheckOptimumPoint(const TTrial& trial)
+{
+  if (trial.x + eps >= pTask->GetOptimumPoint() && pTask->GetOptimumPoint() >= trial.x - eps)
+    return true;
   return false;
 }
