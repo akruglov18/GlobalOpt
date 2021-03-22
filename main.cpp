@@ -15,8 +15,8 @@ class TX2Problem : public IProblem
 	/// Метод возвращает границы области поиска
 	virtual void GetBounds(double& lower, double& upper)
 	{
-		lower = -1;
-		upper = 2;
+		lower = -0.5;
+		upper = 1.5;
 	}
 	/** Метод возвращает значение функции в точке глобального минимума
 	\param[out] value оптимальное значение
@@ -44,7 +44,7 @@ class TX2Problem : public IProblem
 	*/
 	virtual double CalculateFunction(const double x) const
 	{
-		return x * x;
+		return x * x - cos(18 * x);
 	}
 
 	///Деструктор
