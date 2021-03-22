@@ -134,18 +134,7 @@ protected:
 	TTask* pTask;
 	///
 	std::vector<TTrial> Trials;
-	/// Текущее испытание
-	TTrial CurTrial;
-	/// Лучшее испытание
-	TTrial BestTrial;
-	/// Был ли обновлён оптимум на текущей итерации
-	bool recalc = false;
-	/// Количество итераций
-	int IterationCount;
-	/// Интервал с максимальной характеристикой
-	int t;
-	///
-	double eps;
+
 	/** Вычисление характеристики интервала
 	\param[in] p указатель на интервал, характеристику которого надо вычислить
 	\return Характеристика интервала
@@ -157,10 +146,10 @@ protected:
 	\param[in] trial точка, которую необходимо сравнить с текущим оптимумом
 	\return true, если оптимум обновлён, иначе false
 	*/
-	bool UpdateOptimumEstimation(const TTrial& trial);
+	virtual bool UpdateOptimumEstimation(const TTrial& trial) = 0;
 
 	/// Проверяет попала ли точка в окрестность глобального манимума
-	virtual bool CheckOptimumPoint(const TTrial& trial);
+	virtual bool CheckOptimumPoint(const TTrial& trial) = 0;
 
 public:
 
@@ -194,41 +183,44 @@ public:
 	/** Вычисление функций задачи
 	Проводится испытание в точке из CurTrial, результат	записываются туда же
 	*/
-	void CalculateFunction();
+	virtual void CalculateFunction() = 0;
 	/** Обновление поисковой информации
 	*/
-	void RenewSearchData();
+	virtual void RenewSearchData() = 0;
 	/** Оценить текущее значение оптимума
 	\return истина, если оптимум изменился; ложь - в противном случае
 	*/
-	bool EstimateOptimum();
+	virtual bool EstimateOptimum() = 0;
 	/** Функция вызывается в конце проведения итерации
 	*/
 	virtual void FinalizeIteration() = 0;
 	/** Получить число испытаний
 	\return число испытаний
 	*/
-	int GetIterationCount();
+	virtual int GetIterationCount() = 0;
 	/** Получить текущую оценку оптимума
 	\return испытание, соответствующее текущему оптимуму
 	*/
-	TTrial GetOptimEstimation();
+	virtual TTrial GetOptimEstimation() = 0;
 	/** Получить текущее испытание
 	\return текущее испытание
 	*/
-	TTrial GetCurTrial();
+	virtual TTrial GetCurTrial() = 0;
+	/** Установить границы области поиска
+	*/
+	virtual void SetBounds() = 0;
 	/**Сбор статистики
 	Функция возвращает общее число испытаний, выполненных при решении текущей задачи
 	\return общее число испытаний
 	*/
-	int GetNumberOfTrials();
+	virtual int GetNumberOfTrials() = 0;
 	///Получить номер итерации с наилучшим решением
-	int GetBestTrialIteration();
+	virtual int GetBestTrialIteration() = 0;
 	/**Функция записывает точки испытаний в файл
 	\param[in] fileName имя файла, в который будут записаны точки
 	*/
-	virtual void PrintPoints(const std::string& fileName);
+	virtual void PrintPoints(const std::string& fileName) = 0;
 
 	/// Возвращает достигнутую точность
-	virtual double GetAchievedAccuracy();
+	virtual double GetAchievedAccuracy() = 0;
 };
