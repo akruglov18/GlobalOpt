@@ -1,6 +1,5 @@
 ﻿#include "classes.h"
 #include <iostream>
-#include "AGP.h"
 
 //Функция y = (x-1)(x-1) при x \in [-1,2]
 class TX2Problem : public IProblem
@@ -57,7 +56,6 @@ class TX2Problem : public IProblem
 //Пример создания конкретной задачи
 int main(int argc, char* argv[])
 {
-	IMethod* meth = new AGP();
 	//Объявляем указатель на базовый класс и присваиваем ему указатель на производный класс
 	IProblem* problem = new TX2Problem();
 	//Инициализируем задачу оптимизации
