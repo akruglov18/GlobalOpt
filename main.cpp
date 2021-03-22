@@ -1,5 +1,6 @@
 ﻿#include "classes.h"
 #include <iostream>
+#include "AGP.h"
 
 //Функция y = (x-1)(x-1) при x \in [-1,2]
 class TX2Problem : public IProblem
@@ -43,7 +44,7 @@ class TX2Problem : public IProblem
 	*/
 	virtual double CalculateFunction(const double x) const
 	{
-		return (x - 1) * (x - 1);
+		return x * x;
 	}
 
 	///Деструктор
@@ -54,34 +55,44 @@ class TX2Problem : public IProblem
 };
 
 //Пример создания конкретной задачи
-int main(int argc, char* argv[])
-{
-	//Объявляем указатель на базовый класс и присваиваем ему указатель на производный класс
+//int main(int argc, char* argv[])
+//{
+//	IMethod* meth = new AGP();
+//	//Объявляем указатель на базовый класс и присваиваем ему указатель на производный класс
+//	IProblem* problem = new TX2Problem();
+//	//Инициализируем задачу оптимизации
+//	TTask task(problem);
+//	//И используем ее в методе
+//
+//	//Для примера - печать таблицы значений функции
+//	int size = 20;
+//	double x = task.GetA();
+//	double h = (task.GetB() - task.GetA()) / size;
+//
+//	std::cout << " x        f(x)" << std::endl;
+//	std::cout.precision(2);
+//	std::cout << std::fixed;
+//	for (int i = 0; i < size; i++)
+//	{
+//		x = task.GetA() + i * h;
+//		std::cout << x << "     " << task.CalculateFunction(x) << std::endl;
+//	}
+//	std::cout << std::endl << std::endl;
+//
+//	std::cout << "min{f(x)} = " << task.GetOptimumValue() << std::endl;
+//	std::cout << "arg min{f(x)} = " << task.GetOptimumPoint() << std::endl << std::endl;
+//
+//
+//	delete problem;
+//
+//	return 0;
+//}
+
+int main() {
 	IProblem* problem = new TX2Problem();
-	//Инициализируем задачу оптимизации
 	TTask task(problem);
-	//И используем ее в методе
-
-	//Для примера - печать таблицы значений функции
-	int size = 20;
-	double x = task.GetA();
-	double h = (task.GetB() - task.GetA()) / size;
-
-	std::cout << " x        f(x)" << std::endl;
-	std::cout.precision(2);
-	std::cout << std::fixed;
-	for (int i = 0; i < size; i++)
-	{
-		x = task.GetA() + i * h;
-		std::cout << x << "     " << task.CalculateFunction(x) << std::endl;
-	}
-	std::cout << std::endl << std::endl;
-
-	std::cout << "min{f(x)} = " << task.GetOptimumValue() << std::endl;
-	std::cout << "arg min{f(x)} = " << task.GetOptimumPoint() << std::endl << std::endl;
-
-
-	delete problem;
-
-	return 0;
+	IMethod* method = new AGP(&task, 300, 2.0, 0.001);
+	method->Solve();
+	std::cout << "z: " << method->GetOptimEstimation().FuncValue << " x:" << method->GetOptimEstimation().x << "\n";
+	std::cout << "count: " << method->GetNumberOfTrials();
 }
