@@ -6,8 +6,6 @@
 
 class Kushner : public IMethod{
 private:
-  /// Оценка константы Липшица
-  double m;
   /// Параметр метода
   double r;
 protected:
