@@ -8,6 +8,15 @@ double Kushner::CalculateR(int p)
   return up / down;
 }
 
+Kushner::Kushner(TTask* Task, int count, double _r, double _eps)
+{
+  pTask = Task;
+  IterationCount = count;
+  r = _r;
+  eps = _eps;
+  Trials.reserve(IterationCount);
+}
+
 void Kushner::FirstIteration()
 {
   double A = pTask->GetA();
