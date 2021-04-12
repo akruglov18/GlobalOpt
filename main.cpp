@@ -92,7 +92,7 @@ class TX2Problem : public IProblem
 int main() {
 	IProblem* problem = new TX2Problem();
 	TTask task(problem);
-	IMethod* method = new Kushner(&task, 600, 0.1, 0.001);
+	IMethod* method = new AGP(&task, 600, 2, 0.001);
 	method->Solve();
 	std::cout << "z: " << method->GetOptimEstimation().FuncValue << " x:" << method->GetOptimEstimation().x << "\n";
 	std::cout << "count: " << method->GetNumberOfTrials();

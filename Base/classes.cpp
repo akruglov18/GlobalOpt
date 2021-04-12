@@ -22,7 +22,12 @@ void IMethod::PrintPoints(const std::string& fileName)
 
 double IMethod::GetAchievedAccuracy()
 {
-  return abs(BestTrial.x - pTask->GetOptimumPoint());
+  return fabs(BestTrial.x - pTask->GetOptimumPoint());
+}
+
+std::vector<TTrial> IMethod::GetTrials() const
+{
+    return Trials;
 }
 
 void IMethod::CalculateFunction()

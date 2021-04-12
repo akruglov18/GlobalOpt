@@ -234,6 +234,9 @@ public:
 
 	/// Возвращает достигнутую точность
 	virtual double GetAchievedAccuracy();
+
+	/// Возвращает вектор испытаний
+	std::vector<TTrial> GetTrials() const;
 };
 
 #endif
